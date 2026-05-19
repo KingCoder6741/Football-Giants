@@ -2,6 +2,9 @@
 
 A sleek, interactive split-screen landing page dedicated to two of the biggest football clubs in the world: **Real Madrid** and **Manchester United**.
 
+## 🚀 Live Demo
+You can view the live site here: `[INSERT YOUR GITHUB PAGES URL HERE]`
+
 ## ✨ Features
 - **Split-Screen Design:** Visual balance between the two legendary clubs.
 - **Interactive Hover Effects:** Sections expand when hovered to focus on a specific team.
