@@ -3,27 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real Madrid & Man United</title>
+    <title>The Giants of Football | Madrid & United</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; }
-        .container { display: flex; height: 100vh; width: 100vw; }
-        .club { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; transition: 0.5s; }
-        .real { background: #FEFEFE; color: #001A4E; border-right: 5px solid #EEAC0F; }
-        .united { background: #DA020E; color: #FFE500; }
-        .club:hover { flex: 1.5; }
-        h1 { font-size: 3rem; }
+        :root {
+            --rm-white: #FEFEFE;
+            --rm-navy: #001A4E;
+            --rm-gold: #EEAC0F;
+            --mu-red: #DA020E;
+            --mu-yellow: #FFE500;
+            --mu-black: #000000;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Split Screen */
+        .hero {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        @media (max-width: 768px) {
+            .hero { flex-direction: column; }
+        }
+
+        .club-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            padding: 40px;
+        }
+
+        .real-madrid {
+            background: linear-gradient(135deg, var(--rm-white) 0%, #e6e6e6 100%);
+            color: var(--rm-navy);
+            border-right: 4px solid var(--rm-gold);
+        }
+
+        .man-united {
+            background: linear-gradient(135deg, var(--mu-red) 0%, #a5010a 100%);
+        }
+
+        .club-section:hover { flex: 1.5; }
+
+        h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin: 0; }
+        
+        .badge {
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .rm-badge { background: var(--rm-navy); color: white; }
+        .mu-badge { background: var(--mu-yellow); color: var(--mu-black); }
+
+        /* Rivalry Section */
+        .rivalry-corner {
+            padding: 80px 20px;
+            background: #111;
+            text-align: center;
+        }
+
+        .comparison-table {
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            border-collapse: collapse;
+            background: #1a1a1a;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        th, td { padding: 20px; border-bottom: 1px solid #333; }
+        th { background: #222; color: var(--rm-gold); text-transform: uppercase; }
+        
+        .row-label { font-weight: bold; color: #888; }
+        .val-rm { color: #5dade2; font-weight: 800; }
+        .val-mu { color: #ec7063; font-weight: 800; }
+
+        .ticker {
+            background: #ffcc00;
+            color: black;
+            padding: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <section class="club real">
+
+    <div class="hero">
+        <!-- Real Madrid -->
+        <section class="club-section real-madrid">
+            <div class="rm-badge badge">La Liga Leaders</div>
             <h1>Real Madrid</h1>
             <p>15x Champions League Winners</p>
+            <a href="#rivalry" style="color: var(--rm-navy); font-weight: bold; margin-top: 20px;">View Comparison ↓</a>
         </section>
-        <section class="club united">
+
+        <!-- Manchester United -->
+        <section class="club-section man-united">
+            <div class="mu-badge badge">The Red Devils</div>
             <h1>Man United</h1>
-            <p>The Red Devils</p>
+            <p>The Theater of Dreams</p>
+            <div class="ticker">🚨 Rashford at Barca: Clásico awaits!</div>
         </section>
     </div>
+
+    <!-- Rivalry Corner Section -->
+    <div class="rivalry-corner" id="rivalry">
+        <h2>🏆 Rivalry Corner</h2>
+        <p>Comparing the heritage of Europe's most decorated clubs.</p>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Real Madrid</th>
+                    <th>Man United</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="row-label">Champions League</td>
+                    <td class="val-rm">15</td>
+                    <td class="val-mu">3</td>
+                </tr>
+                <tr>
+                    <td class="row-label">Domestic Leagues</td>
+                    <td class="val-rm">36</td>
+                    <td class="val-mu">20</td>
+                </tr>
+                <tr>
+                    <td class="row-label">Club World Cups</td>
+                    <td class="val-rm">8</td>
+                    <td class="val-mu">2</td>
+                </tr>
+                <tr>
+                    <td class="row-label">Main Icon</td>
+                    <td class="val-rm">Vini Jr.</td>
+                    <td class="val-mu">Kobbie Mainoo</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="color: #666; font-style: italic;">Data updated as of May 19, 2026</p>
+    </div>
+
 </body>
 </html>
