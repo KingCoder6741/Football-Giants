@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Football Giants | The 2026 Season</title>
+    <!-- Lucide Icons Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
             --rm-navy: #001A4E; --rm-gold: #EEAC0F;
@@ -33,13 +35,11 @@
             user-select: none;
         }
 
-        /* Hover Effects */
         .rm .club-name:hover { color: var(--rm-gold); transform: scale(1.1); text-shadow: 0 0 40px rgba(238, 172, 15, 0.7); }
         .mu .club-name:hover { color: var(--mu-red); transform: scale(1.1); text-shadow: 0 0 40px rgba(218, 2, 14, 0.7); }
 
-        .subtitle { font-weight: 900; opacity: 0.3; letter-spacing: 5px; margin-bottom: 10px; }
+        .subtitle { font-weight: 900; opacity: 0.3; letter-spacing: 5px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
 
-        /* PSG BANNER UNDER HERO */
         .psg-banner {
             background: linear-gradient(90deg, var(--psg-blue), var(--psg-red));
             color: white; padding: 40px 20px; font-weight: 900; text-align: center;
@@ -57,33 +57,39 @@
             max-width: 450px; width: 90%; text-align: center; position: relative;
         }
         .close { position: absolute; top: 20px; right: 20px; font-size: 2rem; cursor: pointer; color: #555; }
+        
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-        .stat-item { background: #1a1a1a; padding: 15px; border-radius: 12px; border: 1px solid #222; }
-        .stat-val { font-size: 1.5rem; font-weight: 900; color: var(--rm-gold); display: block; }
+        .stat-item { background: #1a1a1a; padding: 15px; border-radius: 12px; border: 1px solid #222; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .stat-val { font-size: 1.5rem; font-weight: 900; color: var(--rm-gold); }
+        .stat-item i { color: #555; }
     </style>
 </head>
 <body>
 
 <nav class="navbar">
-    <div style="font-weight: 900; letter-spacing: 1px;">FOOTBALL GIANTS // LIVE</div>
-    <div id="clock" style="font-family: monospace; color: var(--rm-gold); font-weight: bold;">07:46:25 PM</div>
+    <div style="font-weight: 900; letter-spacing: 1px; display: flex; align-items: center; gap: 10px;">
+        <i data-lucide="trophy" style="width: 20px; color: var(--rm-gold);"></i> FOOTBALL GIANTS // 2026
+    </div>
+    <div id="clock" style="font-family: monospace; color: var(--rm-gold); font-weight: bold;">07:50:00 PM</div>
 </nav>
 
 <div class="hero">
     <div class="panel rm" style="margin-top: 60px;">
-        <p class="subtitle">LA LIGA</p>
+        <p class="subtitle"><i data-lucide="crown" style="width: 16px;"></i> LA LIGA</p>
         <h1 class="club-name" onclick="showPlayer('vini')">REAL<br>MADRID</h1>
         <p style="margin-top: 20px; opacity: 0.4; font-size: 0.8rem;">Click for 2026 Scout Report</p>
     </div>
     <div class="panel mu" style="margin-top: 60px;">
-        <p class="subtitle">PREMIER LEAGUE</p>
+        <p class="subtitle"><i data-lucide="flame" style="width: 16px;"></i> PREMIER LEAGUE</p>
         <h1 class="club-name" onclick="showPlayer('mainoo')">MAN<br>UNITED</h1>
         <p style="margin-top: 20px; opacity: 0.4; font-size: 0.8rem;">Click for 2026 Scout Report</p>
     </div>
 </div>
 
 <div class="psg-banner">
-    <h2 style="margin: 0; font-size: 2rem;">🏆 THE ROAD TO THE DOUBLE 🏆</h2>
+    <h2 style="margin: 0; font-size: 2rem; display: flex; align-items: center; justify-content: center; gap: 15px;">
+        <i data-lucide="star" style="fill: white;"></i> THE ROAD TO THE DOUBLE <i data-lucide="star" style="fill: white;"></i>
+    </h2>
     <p style="margin: 10px 0 0 0; opacity: 0.9; letter-spacing: 1px;">
         Defending Champions PSG face Arsenal in Budapest on May 30th for their 2nd consecutive UCL title.
     </p>
@@ -94,17 +100,33 @@
         <span class="close" onclick="closeModal()">&times;</span>
         <h2 id="playerName" style="font-size: 3rem; margin: 0; letter-spacing: -2px;">NAME</h2>
         <p id="playerRole" style="color: #666; font-weight: 900; margin-bottom: 20px;">ROLE</p>
+        
         <div class="stat-grid">
-            <div class="stat-item"><span class="stat-val" id="p1">0</span><small>Goals '26</small></div>
-            <div class="stat-item"><span class="stat-val" id="p2">0</span><small>Assists</small></div>
-            <div class="stat-item"><span class="stat-val" id="p3">0</span><small>Market Value</small></div>
-            <div class="stat-item"><span class="stat-val" id="p4">0</span><small>Current Age</small></div>
+            <div class="stat-item">
+                <i data-lucide="target"></i>
+                <span class="stat-val" id="p1">0</span><small>Goals '26</small>
+            </div>
+            <div class="stat-item">
+                <i data-lucide="zap"></i>
+                <span class="stat-val" id="p2">0</span><small>Assists</small>
+            </div>
+            <div class="stat-item">
+                <i data-lucide="banknote"></i>
+                <span class="stat-val" id="p3">0</span><small>Market Value</small>
+            </div>
+            <div class="stat-item">
+                <i data-lucide="user"></i>
+                <span class="stat-val" id="p4">0</span><small>Current Age</small>
+            </div>
         </div>
         <p id="playerBio" style="margin-top: 30px; line-height: 1.6; opacity: 0.8;"></p>
     </div>
 </div>
 
 <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
     function updateClock() {
         const now = new Date();
         document.getElementById('clock').innerText = now.toLocaleTimeString();
@@ -132,6 +154,8 @@
         document.getElementById('p4').innerText = p.p4;
         document.getElementById('playerBio').innerText = p.bio;
         document.getElementById('playerModal').style.display = 'flex';
+        // Re-init icons inside modal if needed
+        lucide.createIcons();
     }
 
     function closeModal() { document.getElementById('playerModal').style.display = 'none'; }
