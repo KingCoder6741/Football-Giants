@@ -3,7 +3,7 @@
 A sleek, interactive split-screen landing page dedicated to two of the biggest football clubs in the world: **Real Madrid** and **Manchester United**.
 
 ## 🚀 Live Demo
-You can view the live site here: `(https://github.com/KingCoder6741/Football-Giants)`
+You can view the live site here: `(https://kingcoder6741.github.io/Football-Giants/#rivalry)`
 
 ## ✨ Features
 - **Split-Screen Design:** Visual balance between the two legendary clubs.
