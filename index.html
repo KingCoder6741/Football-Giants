@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Giants: Real Madrid & Man United</title>
+    <style>
+        /* CSS Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .club-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: flex 0.5s ease;
+            color: white;
+            padding: 20px;
+        }
+
+        /* Real Madrid Styling */
+        .real-madrid {
+            background-color: #FEFEFE;
+            color: #001A4E;
+            border-right: 5px solid #EEAC0F;
+        }
+
+        /* Manchester United Styling */
+        .man-united {
+            background-color: #DA020E;
+            color: #FFE500;
+        }
+
+        .club-section:hover {
+            flex: 1.2;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .stats {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            list-style: none;
+        }
+
+        .stats li {
+            margin: 10px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .rm-btn { background: #001A4E; color: white; }
+        .mu-btn { background: #FFE500; color: #DA020E; }
+
+        .btn:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Real Madrid Section -->
+        <section class="club-section real-madrid">
+            <h1>Real Madrid</h1>
+            <p>The Kings of Europe</p>
+            <ul class="stats">
+                <li>🏆 15 Champions League Titles</li>
+                <li>🇪🇸 36 La Liga Titles</li>
+                <li>🏟️ Santiago Bernabéu</li>
+            </ul>
+            <a href="https://www.realmadrid.com" target="_blank" class="btn rm-btn">Hala Madrid</a>
+        </section>
+
+        <!-- Manchester United Section -->
+        <section class="club-section man-united">
+            <h1>Man United</h1>
+            <p>The Red Devils</p>
+            <ul class="stats">
+                <li>🏆 3 Champions League Titles</li>
+                <li>🏴󠁧󠁢󠁥󠁮󠁧󠁿 20 League Titles</li>
+                <li>🏟️ Old Trafford</li>
+            </ul>
+            <a href="https://www.manutd.com" target="_blank" class="btn mu-btn">Glory Glory</a>
+        </section>
+    </div>
+
+</body>
+</html>
