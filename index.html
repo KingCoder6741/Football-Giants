@@ -3,113 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football Giants | LIVE 2026</title>
+    <title>Football Giants | Road to the Final 2026</title>
     <style>
         :root {
-            --rm-navy: #001A4E; --rm-gold: #EEAC0F; --rm-white: #FEFEFE;
-            --mu-red: #DA020E; --mu-yellow: #FFE500;
+            --rm-white: #FEFEFE; --rm-navy: #001A4E; --rm-gold: #EEAC0F;
+            --mu-red: #DA020E; --mu-yellow: #FFE500; --bg: #050505;
         }
-        body, html { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: #050505; color: white; scroll-behavior: smooth; }
+        body, html { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: white; scroll-behavior: smooth; }
         
-        /* Top Navigation */
         .navbar {
-            position: fixed; top: 0; width: 100%; padding: 20px;
-            background: rgba(0,0,0,0.9); backdrop-filter: blur(15px);
-            display: flex; justify-content: space-between; align-items: center; z-index: 100;
-            border-bottom: 1px solid #222;
+            position: fixed; top: 0; width: 100%; padding: 15px 30px;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+            border-bottom: 1px solid #222; box-sizing: border-box;
         }
-        .live-status { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: bold; }
-        .dot { height: 8px; width: 8px; background: #00ff00; border-radius: 50%; animation: pulse 1.5s infinite; }
 
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
-        /* Hero Split */
         .hero { display: flex; height: 100vh; }
         @media (max-width: 768px) { .hero { flex-direction: column; } }
         
-        .panel { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.6s; overflow: hidden; position: relative; }
+        .panel { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; }
         .panel.rm { background: var(--rm-white); color: var(--rm-navy); }
         .panel.mu { background: var(--mu-red); color: white; }
-        .panel:hover { flex: 1.5; }
+        .panel:hover { flex: 1.8; }
 
-        /* Countdown Area */
-        .matchday-bar {
-            background: #111; padding: 40px 20px; text-align: center; border-top: 2px solid var(--rm-gold);
+        .panel h1 { font-size: clamp(3rem, 10vw, 6rem); margin: 0; text-transform: uppercase; letter-spacing: -4px; line-height: 0.9; text-align: center; }
+
+        /* THE LEGENDS DESIGN */
+        .legends-container { padding: 100px 20px; text-align: center; background: #000; }
+        .legends-wrapper { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 50px; }
+
+        .legend-card {
+            width: 300px; padding: 40px; border-radius: 20px; position: relative;
+            background: #111; border: 2px solid #222; transition: 0.4s;
+            display: flex; flex-direction: column; align-items: center;
         }
-        .timer { font-size: 2.5rem; font-weight: 800; color: var(--rm-gold); margin: 20px 0; }
+        .rm-card:hover { border-color: var(--rm-gold); transform: translateY(-10px); }
+        .mu-card:hover { border-color: var(--mu-red); transform: translateY(-10px); }
 
-        /* Legends List */
-        .legends-section { padding: 80px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1000px; margin: 0 auto; }
-        .legend-card { background: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #333; transition: 0.3s; }
-        .legend-card:hover { border-color: var(--rm-gold); transform: translateY(-5px); }
+        .legend-list { list-style: none; padding: 0; width: 100%; }
+        .legend-list li { padding: 15px 0; border-bottom: 1px solid #222; font-weight: 700; text-transform: uppercase; }
 
-        .btn-action {
-            margin-top: 20px; padding: 12px 24px; border-radius: 6px; font-weight: bold;
-            text-decoration: none; display: inline-block; transition: 0.3s;
-        }
+        /* News Ticker */
+        .ticker-wrap { background: var(--rm-gold); color: black; padding: 12px; font-weight: 900; overflow: hidden; white-space: nowrap; }
+        .ticker { display: inline-block; animation: marquee 20s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        .countdown-box { padding: 60px 20px; text-align: center; background: #0a0a0a; border-top: 1px solid #222; }
+        .timer { font-size: 3rem; font-weight: 900; color: var(--rm-gold); margin: 20px 0; font-family: monospace; }
+
+        .btn { margin-top: 30px; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 800; transition: 0.3s; }
         .rm-btn { background: var(--rm-navy); color: white; }
         .mu-btn { background: var(--mu-yellow); color: black; }
+
     </style>
 </head>
 <body>
 
 <nav class="navbar">
-    <div class="live-status"><div class="dot"></div> LIVE UPDATES // MAY 19, 2026</div>
-    <div id="clock" style="font-family: monospace; color: var(--rm-gold);">07:23:00 PM</div>
+    <div style="font-weight: 900; letter-spacing: 1px;">FOOTBALL GIANTS // 2026</div>
+    <div id="clock" style="font-family: monospace; font-weight: bold; color: var(--rm-gold);">07:27:00 PM</div>
 </nav>
 
 <div class="hero">
     <div class="panel rm">
-        <h2 style="letter-spacing: 4px; opacity: 0.7;">REYES DE EUROPA</h2>
-        <h1 style="font-size: 5rem; margin: 10px 0;">REAL MADRID</h1>
-        <p>Current Icon: <b>Vini Jr.</b></p>
-        <a href="https://www.realmadrid.com" class="btn-action rm-btn">THE BERNABÉU</a>
+        <p style="font-weight: 900; opacity: 0.5;">REYES DE EUROPA</p>
+        <h1>REAL<br>MADRID</h1>
+        <a href="https://www.realmadrid.com" class="btn rm-btn">VISIT CLUB</a>
     </div>
     <div class="panel mu">
-        <h2 style="letter-spacing: 4px; opacity: 0.7;">THEATER OF DREAMS</h2>
-        <h1 style="font-size: 5rem; margin: 10px 0;">MAN UNITED</h1>
-        <p>Current Icon: <b>Kobbie Mainoo</b></p>
-        <a href="https://www.manutd.com" class="btn-action mu-btn">OLD TRAFFORD</a>
+        <p style="font-weight: 900; opacity: 0.5;">THE RED DEVILS</p>
+        <h1>MAN<br>UNITED</h1>
+        <a href="https://www.manutd.com" class="btn mu-btn">VISIT CLUB</a>
     </div>
 </div>
 
-<div class="matchday-bar">
-    <h3>NEXT FIXTURE: CHAMPIONS LEAGUE PRE-SEASON</h3>
-    <div class="timer" id="countdown">04D : 12H : 35M : 09S</div>
-    <p style="opacity: 0.6;">🚨 TRANSFER ALERT: Marcus Rashford begins training with FC Barcelona.</p>
+<div class="ticker-wrap">
+    <div class="ticker">
+        🚨 TRANSFER ALERT: MARCUS RASHFORD OFFICIALLY UNVEILED AT CAMP NOU • KOBBIE MAINOO TAKE THE #10 SHIRT AT UNITED • REAL MADRID PREPARE FOR THE CHAMPIONS LEAGUE FINAL 🚨
+    </div>
 </div>
 
-<div class="legends-section">
-    <div class="legend-card">
-        <h3 style="color: var(--rm-gold);">MADRID LEGENDS</h3>
-        <p>Cristiano Ronaldo • Zidane • Raúl • Modrić</p>
-    </div>
-    <div class="legend-card">
-        <h3 style="color: var(--mu-red);">UNITED LEGENDS</h3>
-        <p>Sir Bobby Charlton • Best • Cantona • Rooney</p>
+<div class="countdown-box">
+    <h3 style="text-transform: uppercase; letter-spacing: 2px;">🏆 Countdown to the Champions League Final 2026</h3>
+    <div class="timer" id="timer">12D : 14H : 32M : 05S</div>
+    <p style="opacity: 0.5;">Live from the Allianz Arena, Munich</p>
+</div>
+
+<div class="legends-container">
+    <h2 style="font-size: 3rem; text-transform: uppercase; letter-spacing: -2px;">Immortal Icons</h2>
+    <div class="legends-wrapper">
+        <div class="legend-card rm-card">
+            <div style="color: var(--rm-gold); font-size: 0.8rem; font-weight: 900; margin-bottom: 10px;">MADRID ICONS</div>
+            <ul class="legend-list">
+                <li>C. RONALDO</li>
+                <li>Z. ZIDANE</li>
+                <li>RAÚL</li>
+                <li>MODRIĆ</li>
+            </ul>
+        </div>
+        <div class="legend-card mu-card">
+            <div style="color: var(--mu-red); font-size: 0.8rem; font-weight: 900; margin-bottom: 10px;">UNITED ICONS</div>
+            <ul class="legend-list">
+                <li>B. CHARLTON</li>
+                <li>GEORGE BEST</li>
+                <li>ERIC CANTONA</li>
+                <li>WAYNE ROONEY</li>
+            </ul>
+        </div>
     </div>
 </div>
+
+<footer style="padding: 50px; text-align: center; border-top: 1px solid #222; opacity: 0.4; font-size: 0.8rem;">
+    &copy; 2026 FOOTBALL GIANTS • ACCURATE AS OF MAY 19, 2026
+</footer>
 
 <script>
-    // Live Clock Logic
     function updateClock() {
         const now = new Date();
         document.getElementById('clock').innerText = now.toLocaleTimeString();
     }
     setInterval(updateClock, 1000);
 
-    // Simulated Countdown Logic
-    let time = 391500; // Total seconds
-    function updateTimer() {
-        let d = Math.floor(time / 86400);
-        let h = Math.floor((time % 86400) / 3600);
-        let m = Math.floor((time % 3600) / 60);
-        let s = time % 60;
-        document.getElementById('countdown').innerText = 
-            `${d.toString().padStart(2, '0')}D : ${h.toString().padStart(2, '0')}H : ${m.toString().padStart(2, '0')}M : ${s.toString().padStart(2, '0')}S`;
-        time--;
-    }
-    setInterval(updateTimer, 1000);
+    // Dynamic Marquee style ticker logic is handled by CSS @keyframes
 </script>
 
 </body>
