@@ -3,183 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football Giants | Madrid vs United</title>
+    <title>Football Giants | LIVE 2026</title>
     <style>
         :root {
-            --rm-white: #FEFEFE;
-            --rm-navy: #001A4E;
-            --rm-gold: #EEAC0F;
-            --mu-red: #DA020E;
-            --mu-yellow: #FFE500;
-            --mu-black: #000000;
-            --glass: rgba(255, 255, 255, 0.1);
+            --rm-navy: #001A4E; --rm-gold: #EEAC0F; --rm-white: #FEFEFE;
+            --mu-red: #DA020E; --mu-yellow: #FFE500;
         }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: #050505;
-            color: white;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
+        body, html { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: #050505; color: white; scroll-behavior: smooth; }
+        
+        /* Top Navigation */
+        .navbar {
+            position: fixed; top: 0; width: 100%; padding: 20px;
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(15px);
+            display: flex; justify-content: space-between; align-items: center; z-index: 100;
+            border-bottom: 1px solid #222;
         }
+        .live-status { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: bold; }
+        .dot { height: 8px; width: 8px; background: #00ff00; border-radius: 50%; animation: pulse 1.5s infinite; }
 
-        /* Top Bar & Live Clock */
-        .top-nav {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 15px;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #333;
-        }
-
-        .live-clock { color: var(--rm-gold); font-weight: bold; margin-right: 30px; font-family: monospace; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
         /* Hero Split */
-        .hero { display: flex; height: 100vh; width: 100vw; }
+        .hero { display: flex; height: 100vh; }
         @media (max-width: 768px) { .hero { flex-direction: column; } }
+        
+        .panel { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.6s; overflow: hidden; position: relative; }
+        .panel.rm { background: var(--rm-white); color: var(--rm-navy); }
+        .panel.mu { background: var(--mu-red); color: white; }
+        .panel:hover { flex: 1.5; }
 
-        .club-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
-            padding: 40px;
-            position: relative;
+        /* Countdown Area */
+        .matchday-bar {
+            background: #111; padding: 40px 20px; text-align: center; border-top: 2px solid var(--rm-gold);
         }
+        .timer { font-size: 2.5rem; font-weight: 800; color: var(--rm-gold); margin: 20px 0; }
 
-        .real-madrid { background: var(--rm-white); color: var(--rm-navy); }
-        .man-united { background: var(--mu-red); color: white; }
+        /* Legends List */
+        .legends-section { padding: 80px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1000px; margin: 0 auto; }
+        .legend-card { background: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #333; transition: 0.3s; }
+        .legend-card:hover { border-color: var(--rm-gold); transform: translateY(-5px); }
 
-        .club-section:hover { flex: 2; }
-        .club-section:hover h1 { transform: scale(1.1); }
-
-        h1 { font-size: clamp(3rem, 8vw, 6rem); margin: 0; transition: 0.5s; text-transform: uppercase; letter-spacing: -2px; }
-
-        /* Poll Section */
-        .poll-container {
-            padding: 100px 20px;
-            background: linear-gradient(to bottom, #050505, #111);
-            text-align: center;
+        .btn-action {
+            margin-top: 20px; padding: 12px 24px; border-radius: 6px; font-weight: bold;
+            text-decoration: none; display: inline-block; transition: 0.3s;
         }
-
-        .poll-box {
-            max-width: 600px;
-            margin: 40px auto;
-            background: var(--glass);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid #333;
-        }
-
-        .poll-btn {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-rm { background: var(--rm-navy); color: white; }
-        .btn-mu { background: var(--mu-yellow); color: black; }
-        .poll-btn:hover { opacity: 0.8; transform: scale(1.02); }
-
-        /* Footer */
-        footer { padding: 40px; text-align: center; font-size: 0.8rem; color: #555; }
-
+        .rm-btn { background: var(--rm-navy); color: white; }
+        .mu-btn { background: var(--mu-yellow); color: black; }
     </style>
 </head>
 <body>
 
-    <nav class="top-nav">
-        <div style="font-weight: bold; margin-left: 20px;">FOOTBALL GIANTS // 2026</div>
-        <div class="live-clock" id="clock">7:16 PM</div>
-    </nav>
+<nav class="navbar">
+    <div class="live-status"><div class="dot"></div> LIVE UPDATES // MAY 19, 2026</div>
+    <div id="clock" style="font-family: monospace; color: var(--rm-gold);">07:23:00 PM</div>
+</nav>
 
-    <div class="hero">
-        <section class="club-section real-madrid">
-            <p style="font-weight: bold; letter-spacing: 2px;">THE KINGS</p>
-            <h1>Real Madrid</h1>
-            <p>15 Champions Leagues. Eternal Glory.</p>
-        </section>
-
-        <section class="club-section man-united">
-            <p style="font-weight: bold; letter-spacing: 2px;">THE PRIDE</p>
-            <h1>Man United</h1>
-            <p>Theater of Dreams. Rebuilding History.</p>
-        </section>
+<div class="hero">
+    <div class="panel rm">
+        <h2 style="letter-spacing: 4px; opacity: 0.7;">REYES DE EUROPA</h2>
+        <h1 style="font-size: 5rem; margin: 10px 0;">REAL MADRID</h1>
+        <p>Current Icon: <b>Vini Jr.</b></p>
+        <a href="https://www.realmadrid.com" class="btn-action rm-btn">THE BERNABÉU</a>
     </div>
-
-    <div class="poll-container">
-        <h2>🔥 FAN VOTE</h2>
-        <p>Who is currently the bigger threat in 2026?</p>
-        
-        <div class="poll-box">
-            <button class="poll-btn btn-rm" onclick="vote('Madrid')">VOTE REAL MADRID</button>
-            <button class="poll-btn btn-mu" onclick="vote('United')">VOTE MAN UNITED</button>
-            <p id="poll-result" style="margin-top: 20px; font-weight: bold; color: var(--rm-gold);"></p>
-        </div>
-        
-        <div style="margin-top: 50px; opacity: 0.6;">
-            <p>🚨 NEWS TICKER: Marcus Rashford shines in first weeks at Barcelona.</p>
-            <p>📅 CURRENT DATE: May 19, 2026</p>
-        </div>
-    </div>
-<div style="padding: 60px 20px; background: #000; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; text-align: center;">
-    <div>
-        <h3 style="color: #EEAC0F;">MADRID ICONS</h3>
-        <ul style="list-style: none; padding: 0; line-height: 2;">
-            <li>⭐ Cristiano Ronaldo</li>
-            <li>⭐ Alfredo Di Stéfano</li>
-            <li>⭐ Zinedine Zidane</li>
-            <li>⭐ Raúl</li>
-        </ul>
-    </div>
-    <div>
-        <h3 style="color: #DA020E;">UNITED ICONS</h3>
-        <ul style="list-style: none; padding: 0; line-height: 2;">
-            <li>⭐ Sir Bobby Charlton</li>
-            <li>⭐ George Best</li>
-            <li>⭐ Eric Cantona</li>
-            <li>⭐ Wayne Rooney</li>
-        </ul>
+    <div class="panel mu">
+        <h2 style="letter-spacing: 4px; opacity: 0.7;">THEATER OF DREAMS</h2>
+        <h1 style="font-size: 5rem; margin: 10px 0;">MAN UNITED</h1>
+        <p>Current Icon: <b>Kobbie Mainoo</b></p>
+        <a href="https://www.manutd.com" class="btn-action mu-btn">OLD TRAFFORD</a>
     </div>
 </div>
-    <footer>
-        <p>&copy; 2026 Football Giants Fan Site. No affiliation with the clubs.</p>
-    </footer>
 
-    <script>
-        // Update the clock every second
-        function updateClock() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            document.getElementById('clock').innerText = timeString;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+<div class="matchday-bar">
+    <h3>NEXT FIXTURE: CHAMPIONS LEAGUE PRE-SEASON</h3>
+    <div class="timer" id="countdown">04D : 12H : 35M : 09S</div>
+    <p style="opacity: 0.6;">🚨 TRANSFER ALERT: Marcus Rashford begins training with FC Barcelona.</p>
+</div>
 
-        // Simple Vote Function
-        function vote(team) {
-            document.getElementById('poll-result').innerText = "VOTED FOR " + team.toUpperCase() + "! (Refreshing stats...)";
-            setTimeout(() => {
-                alert("Thanks for voting! In 2026, " + team + " fans are leading the poll!");
-            }, 500);
-        }
-    </script>
+<div class="legends-section">
+    <div class="legend-card">
+        <h3 style="color: var(--rm-gold);">MADRID LEGENDS</h3>
+        <p>Cristiano Ronaldo • Zidane • Raúl • Modrić</p>
+    </div>
+    <div class="legend-card">
+        <h3 style="color: var(--mu-red);">UNITED LEGENDS</h3>
+        <p>Sir Bobby Charlton • Best • Cantona • Rooney</p>
+    </div>
+</div>
+
+<script>
+    // Live Clock Logic
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('clock').innerText = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+
+    // Simulated Countdown Logic
+    let time = 391500; // Total seconds
+    function updateTimer() {
+        let d = Math.floor(time / 86400);
+        let h = Math.floor((time % 86400) / 3600);
+        let m = Math.floor((time % 3600) / 60);
+        let s = time % 60;
+        document.getElementById('countdown').innerText = 
+            `${d.toString().padStart(2, '0')}D : ${h.toString().padStart(2, '0')}H : ${m.toString().padStart(2, '0')}M : ${s.toString().padStart(2, '0')}S`;
+        time--;
+    }
+    setInterval(updateTimer, 1000);
+</script>
 
 </body>
 </html>
