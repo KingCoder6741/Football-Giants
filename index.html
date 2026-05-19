@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football Giants | Immortal Icons Edition</title>
+    <title>Football Giants | The 2026 Season</title>
     <style>
         :root {
             --rm-navy: #001A4E; --rm-gold: #EEAC0F;
@@ -12,7 +12,6 @@
         }
         body, html { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: #050505; color: white; scroll-behavior: smooth; }
         
-        /* Navbar */
         .navbar {
             position: fixed; top: 0; width: 100%; padding: 15px 30px;
             background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
@@ -20,120 +19,88 @@
             border-bottom: 1px solid #222; box-sizing: border-box;
         }
 
-        /* Hero Split */
-        .hero { display: flex; height: 100vh; }
+        .hero { display: flex; height: 90vh; }
         @media (max-width: 768px) { .hero { flex-direction: column; } }
         
-        .panel { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.8s; }
-        .panel.rm { background: #1a1a1a; color: #888; border-right: 1px solid #333; }
-        .panel.mu { background: var(--mu-red); color: white; }
-        
-        h1 { font-size: clamp(3rem, 10vw, 5rem); margin: 0; text-transform: uppercase; letter-spacing: -4px; line-height: 0.9; text-align: center; }
+        .panel { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.8s; position: relative; }
+        .panel.rm { background: #1a1a1a; border-right: 1px solid #333; }
+        .panel.mu { background: #111; }
 
+        .club-name {
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            margin: 0; text-transform: uppercase; letter-spacing: -4px; line-height: 0.9;
+            text-align: center; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+        }
+
+        /* Hover Effects */
+        .rm .club-name:hover { color: var(--rm-gold); transform: scale(1.1); text-shadow: 0 0 40px rgba(238, 172, 15, 0.7); }
+        .mu .club-name:hover { color: var(--mu-red); transform: scale(1.1); text-shadow: 0 0 40px rgba(218, 2, 14, 0.7); }
+
+        .subtitle { font-weight: 900; opacity: 0.3; letter-spacing: 5px; margin-bottom: 10px; }
+
+        /* PSG BANNER UNDER HERO */
         .psg-banner {
             background: linear-gradient(90deg, var(--psg-blue), var(--psg-red));
-            color: white; padding: 25px; font-weight: 900; text-align: center; text-transform: uppercase;
+            color: white; padding: 40px 20px; font-weight: 900; text-align: center;
+            text-transform: uppercase; letter-spacing: 2px;
+            border-top: 4px solid var(--psg-red);
         }
 
-        /* Legends Section */
-        .legends-container { padding: 100px 20px; text-align: center; background: #000; }
-        .legends-wrapper { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 50px; }
-
-        .legend-card {
-            width: 320px; padding: 40px; border-radius: 20px;
-            background: #111; border: 2px solid #222; transition: 0.4s;
-        }
-        .rm-card:hover { border-color: var(--rm-gold); transform: translateY(-10px); }
-        .mu-card:hover { border-color: var(--mu-red); transform: translateY(-10px); }
-
-        .legend-list { list-style: none; padding: 0; }
-        .legend-list li { 
-            padding: 15px; border-bottom: 1px solid #222; cursor: pointer; 
-            font-weight: bold; text-transform: uppercase; transition: 0.2s;
-        }
-        .legend-list li:hover { color: var(--rm-gold); background: rgba(255,255,255,0.05); }
-
-        /* Modal / Pop-up Styling */
         .modal {
             display: none; position: fixed; z-index: 2000; left: 0; top: 0;
-            width: 100%; height: 100%; background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(10px); justify-content: center; align-items: center;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(15px); justify-content: center; align-items: center;
         }
         .modal-content {
-            background: #111; padding: 40px; border-radius: 20px; border: 2px solid var(--rm-gold);
+            background: #111; padding: 40px; border-radius: 30px; border: 2px solid #333;
             max-width: 450px; width: 90%; text-align: center; position: relative;
         }
-        .close { position: absolute; top: 20px; right: 20px; font-size: 2rem; cursor: pointer; color: #888; }
-
+        .close { position: absolute; top: 20px; right: 20px; font-size: 2rem; cursor: pointer; color: #555; }
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-        .stat-item { background: #222; padding: 12px; border-radius: 8px; }
-        .stat-val { font-size: 1.3rem; font-weight: 900; color: var(--rm-gold); display: block; }
+        .stat-item { background: #1a1a1a; padding: 15px; border-radius: 12px; border: 1px solid #222; }
+        .stat-val { font-size: 1.5rem; font-weight: 900; color: var(--rm-gold); display: block; }
     </style>
 </head>
 <body>
 
 <nav class="navbar">
-    <div style="font-weight: 900;">FOOTBALL GIANTS // 2026</div>
-    <div id="clock" style="font-family: monospace; color: var(--rm-gold);">07:51 PM</div>
+    <div style="font-weight: 900; letter-spacing: 1px;">FOOTBALL GIANTS // LIVE</div>
+    <div id="clock" style="font-family: monospace; color: var(--rm-gold); font-weight: bold;">07:46:25 PM</div>
 </nav>
 
-<div class="psg-banner">
-    🏆 PSG: THE 2026 DYNASTY — BACK-TO-BACK UCL TITLES 🏆
-</div>
-
 <div class="hero">
-    <div class="panel rm">
-        <p style="font-weight: 900; opacity: 0.5;">REAL MADRID</p>
-        <h1 onclick="showPlayer('vini')" style="cursor:pointer">VINI<br>JR.</h1>
-        <p style="font-size: 0.8rem; margin-top: 10px;">(Click name for stats)</p>
+    <div class="panel rm" style="margin-top: 60px;">
+        <p class="subtitle">LA LIGA</p>
+        <h1 class="club-name" onclick="showPlayer('vini')">REAL<br>MADRID</h1>
+        <p style="margin-top: 20px; opacity: 0.4; font-size: 0.8rem;">Click for 2026 Scout Report</p>
     </div>
-    <div class="panel mu">
-        <p style="font-weight: 900; opacity: 0.5;">MAN UNITED</p>
-        <h1 onclick="showPlayer('mainoo')" style="cursor:pointer">KOBBIE<br>MAINOO</h1>
-        <p style="font-size: 0.8rem; margin-top: 10px;">(Click name for stats)</p>
-    </div>
-</div>
-
-<div class="legends-container">
-    <h2>THE IMMORTAL ICONS</h2>
-    <p style="opacity: 0.5;">Click a name to reveal the legacy.</p>
-
-    <div class="legends-wrapper">
-        <div class="legend-card rm-card">
-            <div style="color: var(--rm-gold); font-weight: 900; margin-bottom: 20px;">MADRID LEGENDS</div>
-            <ul class="legend-list">
-                <li onclick="showPlayer('cr7')">C. Ronaldo</li>
-                <li onclick="showPlayer('zidane')">Z. Zidane</li>
-                <li onclick="showPlayer('raul')">Raúl</li>
-                <li onclick="showPlayer('modric')">L. Modrić</li>
-            </ul>
-        </div>
-        <div class="legend-card mu-card">
-            <div style="color: var(--mu-red); font-weight: 900; margin-bottom: 20px;">UNITED LEGENDS</div>
-            <ul class="legend-list">
-                <li onclick="showPlayer('charlton')">B. Charlton</li>
-                <li onclick="showPlayer('best')">George Best</li>
-                <li onclick="showPlayer('cantona')">Eric Cantona</li>
-                <li onclick="showPlayer('rooney')">Wayne Rooney</li>
-            </ul>
-        </div>
+    <div class="panel mu" style="margin-top: 60px;">
+        <p class="subtitle">PREMIER LEAGUE</p>
+        <h1 class="club-name" onclick="showPlayer('mainoo')">MAN<br>UNITED</h1>
+        <p style="margin-top: 20px; opacity: 0.4; font-size: 0.8rem;">Click for 2026 Scout Report</p>
     </div>
 </div>
 
-<!-- Player Info Modal -->
+<div class="psg-banner">
+    <h2 style="margin: 0; font-size: 2rem;">🏆 THE ROAD TO THE DOUBLE 🏆</h2>
+    <p style="margin: 10px 0 0 0; opacity: 0.9; letter-spacing: 1px;">
+        Defending Champions PSG face Arsenal in Budapest on May 30th for their 2nd consecutive UCL title.
+    </p>
+</div>
+
 <div id="playerModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="playerName" style="font-size: 2.5rem; margin-bottom: 5px;">PLAYER NAME</h2>
-        <p id="playerRole" style="color: #888; text-transform: uppercase; font-weight: bold;">LEGEND STATUS</p>
-        
+        <h2 id="playerName" style="font-size: 3rem; margin: 0; letter-spacing: -2px;">NAME</h2>
+        <p id="playerRole" style="color: #666; font-weight: 900; margin-bottom: 20px;">ROLE</p>
         <div class="stat-grid">
-            <div class="stat-item"><span class="stat-val" id="p1">0</span><small>Goals</small></div>
-            <div class="stat-item"><span class="stat-val" id="p2">0</span><small>Trophies</small></div>
-            <div class="stat-item"><span class="stat-val" id="p3">0</span><small>Apps</small></div>
-            <div class="stat-item"><span class="stat-val" id="p4">0</span><small>Legacy</small></div>
+            <div class="stat-item"><span class="stat-val" id="p1">0</span><small>Goals '26</small></div>
+            <div class="stat-item"><span class="stat-val" id="p2">0</span><small>Assists</small></div>
+            <div class="stat-item"><span class="stat-val" id="p3">0</span><small>Market Value</small></div>
+            <div class="stat-item"><span class="stat-val" id="p4">0</span><small>Current Age</small></div>
         </div>
-        <p id="playerBio" style="margin-top: 25px; line-height: 1.6; font-size: 0.95rem;"></p>
+        <p id="playerBio" style="margin-top: 30px; line-height: 1.6; opacity: 0.8;"></p>
     </div>
 </div>
 
@@ -145,7 +112,31 @@
     setInterval(updateClock, 1000);
 
     const playerData = {
-        vini: { name: "Vini Jr.", role: "The Modern Ace", p1: "155", p2: "12", p3: "310", p4: "Icon", bio: "The face of Real Madrid in 2026. A Ballon d'Or contender and the most feared winger in the world." },
-        mainoo: { name: "Kobbie Mainoo", role: "The New King", p1: "34", p2: "4", p3: "150", p4: "Rising", bio: "Inherited the United #10 shirt. The technical heart of the Red Devils' redemption era." },
-        cr7: { name: "C. Ronaldo", role: "The GOAT", p1: "450", p2: "15", p3: "438", p4: "God Mode", bio: "Real Madrid's all-time top scorer. 4 Champions Leagues. The greatest athlete to ever play the game." },
-        zidane: { name: "Z. Zidane", role: "The Maestro", p1: "49", p2: "6", p3: "227", p4: "Elite", bio: "The man who defined elegance. Famous for the 200
+        vini: {
+            name: "VINI JR.", role: "FORWARD", p1: "28", p2: "14", p3: "€190M", p4: "25",
+            bio: "Madrid's undisputed icon. Despite the semi-final heartbreak against Bayern, Vini remains the world's most feared winger in 2026."
+        },
+        mainoo: {
+            name: "K. MAINOO", role: "MIDFIELDER", p1: "12", p2: "18", p3: "€120M", p4: "21",
+            bio: "The new heart of Old Trafford. Inherited the #10 shirt this season and led United to a top-3 finish with record-breaking assist numbers."
+        }
+    };
+
+    function showPlayer(id) {
+        const p = playerData[id];
+        document.getElementById('playerName').innerText = p.name;
+        document.getElementById('playerRole').innerText = p.role;
+        document.getElementById('p1').innerText = p.p1;
+        document.getElementById('p2').innerText = p.p2;
+        document.getElementById('p3').innerText = p.p3;
+        document.getElementById('p4').innerText = p.p4;
+        document.getElementById('playerBio').innerText = p.bio;
+        document.getElementById('playerModal').style.display = 'flex';
+    }
+
+    function closeModal() { document.getElementById('playerModal').style.display = 'none'; }
+    window.onclick = function(e) { if (e.target == document.getElementById('playerModal')) closeModal(); }
+</script>
+
+</body>
+</html>
