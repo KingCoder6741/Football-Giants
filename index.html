@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football Giants | The 2026 Season</title>
-    <!-- Lucide Icons Library -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Football Giants | 2026 Interactive</title>
+    <!-- Font Awesome for reliable icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --rm-navy: #001A4E; --rm-gold: #EEAC0F;
@@ -31,22 +31,19 @@
         .club-name {
             font-size: clamp(3rem, 10vw, 5.5rem);
             margin: 0; text-transform: uppercase; letter-spacing: -4px; line-height: 0.9;
-            text-align: center; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            user-select: none;
+            text-align: center; cursor: pointer; transition: 0.4s;
         }
 
-        .rm .club-name:hover { color: var(--rm-gold); transform: scale(1.1); text-shadow: 0 0 40px rgba(238, 172, 15, 0.7); }
-        .mu .club-name:hover { color: var(--mu-red); transform: scale(1.1); text-shadow: 0 0 40px rgba(218, 2, 14, 0.7); }
-
-        .subtitle { font-weight: 900; opacity: 0.3; letter-spacing: 5px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .rm .club-name:hover { color: var(--rm-gold); transform: scale(1.05); text-shadow: 0 0 30px rgba(238, 172, 15, 0.5); }
+        .mu .club-name:hover { color: var(--mu-red); transform: scale(1.05); text-shadow: 0 0 30px rgba(218, 2, 14, 0.5); }
 
         .psg-banner {
             background: linear-gradient(90deg, var(--psg-blue), var(--psg-red));
-            color: white; padding: 40px 20px; font-weight: 900; text-align: center;
-            text-transform: uppercase; letter-spacing: 2px;
-            border-top: 4px solid var(--psg-red);
+            color: white; padding: 40px 20px; text-align: center;
+            text-transform: uppercase; font-weight: 900;
         }
 
+        /* Modal styling */
         .modal {
             display: none; position: fixed; z-index: 2000; left: 0; top: 0;
             width: 100%; height: 100%; background: rgba(0,0,0,0.95);
@@ -59,64 +56,58 @@
         .close { position: absolute; top: 20px; right: 20px; font-size: 2rem; cursor: pointer; color: #555; }
         
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-        .stat-item { background: #1a1a1a; padding: 15px; border-radius: 12px; border: 1px solid #222; display: flex; flex-direction: column; align-items: center; gap: 5px; }
-        .stat-val { font-size: 1.5rem; font-weight: 900; color: var(--rm-gold); }
-        .stat-item i { color: #555; }
+        .stat-item { background: #1a1a1a; padding: 15px; border-radius: 12px; border: 1px solid #222; }
+        .stat-val { font-size: 1.5rem; font-weight: 900; color: var(--rm-gold); display: block; margin-bottom: 5px; }
+        .stat-item i { color: #444; margin-bottom: 10px; font-size: 1.2rem; }
     </style>
 </head>
 <body>
 
 <nav class="navbar">
-    <div style="font-weight: 900; letter-spacing: 1px; display: flex; align-items: center; gap: 10px;">
-        <i data-lucide="trophy" style="width: 20px; color: var(--rm-gold);"></i> FOOTBALL GIANTS // 2026
+    <div style="font-weight: 900; letter-spacing: 1px;">
+        <i class="fas fa-trophy" style="color: var(--rm-gold); margin-right: 10px;"></i> FOOTBALL GIANTS // 2026
     </div>
-    <div id="clock" style="font-family: monospace; color: var(--rm-gold); font-weight: bold;">07:50:00 PM</div>
+    <div id="clock" style="font-family: monospace; color: var(--rm-gold); font-weight: bold;">07:53:00 PM</div>
 </nav>
 
 <div class="hero">
     <div class="panel rm" style="margin-top: 60px;">
-        <p class="subtitle"><i data-lucide="crown" style="width: 16px;"></i> LA LIGA</p>
+        <p style="font-weight: 900; opacity: 0.3; letter-spacing: 5px;"><i class="fas fa-crown"></i> LA LIGA</p>
         <h1 class="club-name" onclick="showPlayer('vini')">REAL<br>MADRID</h1>
-        <p style="margin-top: 20px; opacity: 0.4; font-size: 0.8rem;">Click for 2026 Scout Report</p>
     </div>
     <div class="panel mu" style="margin-top: 60px;">
-        <p class="subtitle"><i data-lucide="flame" style="width: 16px;"></i> PREMIER LEAGUE</p>
+        <p style="font-weight: 900; opacity: 0.3; letter-spacing: 5px;"><i class="fas fa-fire"></i> PREMIER LEAGUE</p>
         <h1 class="club-name" onclick="showPlayer('mainoo')">MAN<br>UNITED</h1>
-        <p style="margin-top: 20px; opacity: 0.4; font-size: 0.8rem;">Click for 2026 Scout Report</p>
     </div>
 </div>
 
 <div class="psg-banner">
-    <h2 style="margin: 0; font-size: 2rem; display: flex; align-items: center; justify-content: center; gap: 15px;">
-        <i data-lucide="star" style="fill: white;"></i> THE ROAD TO THE DOUBLE <i data-lucide="star" style="fill: white;"></i>
-    </h2>
-    <p style="margin: 10px 0 0 0; opacity: 0.9; letter-spacing: 1px;">
-        Defending Champions PSG face Arsenal in Budapest on May 30th for their 2nd consecutive UCL title.
-    </p>
+    <h2 style="margin: 0; font-size: 2rem;"><i class="fas fa-star"></i> ROAD TO THE DOUBLE <i class="fas fa-star"></i></h2>
+    <p style="margin-top: 10px; opacity: 0.8;">PSG vs Arsenal | Budapest | May 30, 2026</p>
 </div>
 
 <div id="playerModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="playerName" style="font-size: 3rem; margin: 0; letter-spacing: -2px;">NAME</h2>
+        <h2 id="playerName" style="font-size: 3rem; margin: 0;">NAME</h2>
         <p id="playerRole" style="color: #666; font-weight: 900; margin-bottom: 20px;">ROLE</p>
         
         <div class="stat-grid">
             <div class="stat-item">
-                <i data-lucide="target"></i>
+                <i class="fas fa-bullseye"></i>
                 <span class="stat-val" id="p1">0</span><small>Goals '26</small>
             </div>
             <div class="stat-item">
-                <i data-lucide="zap"></i>
+                <i class="fas fa-bolt"></i>
                 <span class="stat-val" id="p2">0</span><small>Assists</small>
             </div>
             <div class="stat-item">
-                <i data-lucide="banknote"></i>
-                <span class="stat-val" id="p3">0</span><small>Market Value</small>
+                <i class="fas fa-coins"></i>
+                <span class="stat-val" id="p3">0</span><small>Value</small>
             </div>
             <div class="stat-item">
-                <i data-lucide="user"></i>
-                <span class="stat-val" id="p4">0</span><small>Current Age</small>
+                <i class="fas fa-id-card"></i>
+                <span class="stat-val" id="p4">0</span><small>Age</small>
             </div>
         </div>
         <p id="playerBio" style="margin-top: 30px; line-height: 1.6; opacity: 0.8;"></p>
@@ -124,9 +115,6 @@
 </div>
 
 <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
-
     function updateClock() {
         const now = new Date();
         document.getElementById('clock').innerText = now.toLocaleTimeString();
@@ -136,11 +124,11 @@
     const playerData = {
         vini: {
             name: "VINI JR.", role: "FORWARD", p1: "28", p2: "14", p3: "€190M", p4: "25",
-            bio: "Madrid's undisputed icon. Despite the semi-final heartbreak against Bayern, Vini remains the world's most feared winger in 2026."
+            bio: "The face of Real Madrid. Despite the 2026 UCL exit, his pace and dribbling remain unmatched in world football."
         },
         mainoo: {
             name: "K. MAINOO", role: "MIDFIELDER", p1: "12", p2: "18", p3: "€120M", p4: "21",
-            bio: "The new heart of Old Trafford. Inherited the #10 shirt this season and led United to a top-3 finish with record-breaking assist numbers."
+            bio: "Manchester United's generational talent. The new #10 who defines the Red Devils' playstyle in 2026."
         }
     };
 
@@ -154,8 +142,6 @@
         document.getElementById('p4').innerText = p.p4;
         document.getElementById('playerBio').innerText = p.bio;
         document.getElementById('playerModal').style.display = 'flex';
-        // Re-init icons inside modal if needed
-        lucide.createIcons();
     }
 
     function closeModal() { document.getElementById('playerModal').style.display = 'none'; }
