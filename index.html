@@ -8,145 +8,201 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --rm-navy: #001A4E; --rm-gold: #EEAC0F;
-            --mu-red: #DA020E; --mu-yellow: #FFE500;
-            --psg-blue: #004170; --psg-red: #E30613;
+            --rm-navy: #001A4E;
+            --rm-gold: #EEAC0F;
+            --mu-red: #DA020E;
+            --mu-yellow: #FFE500;
+            --psg-blue: #004170;
+            --psg-red: #E30613;
+            --text-light: #ffffff;
+            --bg-dark: #050505;
         }
-        body, html { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: #050505; color: white; scroll-behavior: smooth; }
-        
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
         .navbar {
-            position: fixed; top: 0; width: 100%; padding: 15px 30px;
-            background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
-            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+            position: fixed; top: 0; width: 100%;
+            padding: 15px 30px;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(15px);
+            display: flex; justify-content: space-between;
+            align-items: center; z-index: 1000;
             border-bottom: 1px solid #222; box-sizing: border-box;
         }
-
-        .hero { display: flex; height: 90vh; }
+        .hero { display: flex; height: 100vh; }
         @media (max-width: 768px) { .hero { flex-direction: column; } }
+        .panel {
+            flex: 1; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            transition: 0.5s ease-in-out; position: relative;
+            cursor: pointer;
+        }
+        .panel.rm { background: #101010; border-right: 1px solid #333; }
+        .panel.mu { background: #0a0a0a; }
+        .panel:hover { flex: 1.1; }
         
-        .panel { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.8s; position: relative; }
-        .panel.rm { background: #1a1a1a; border-right: 1px solid #333; }
-        .panel.mu { background: #111; }
-
         .club-name {
-            font-size: clamp(3rem, 10vw, 5.5rem);
-            margin: 0; text-transform: uppercase; letter-spacing: -4px; line-height: 0.9;
-            text-align: center; cursor: pointer; transition: 0.4s;
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin: 0; text-transform: uppercase;
+            letter-spacing: -3px; line-height: 0.9;
+            text-align: center; transition: 0.4s;
+            font-weight: 900;
         }
-
-        .rm .club-name:hover { color: var(--rm-gold); transform: scale(1.05); text-shadow: 0 0 30px rgba(238, 172, 15, 0.5); }
-        .mu .club-name:hover { color: var(--mu-red); transform: scale(1.05); text-shadow: 0 0 30px rgba(218, 2, 14, 0.5); }
-
+        .rm .club-name:hover { color: var(--rm-gold); transform: scale(1.03); text-shadow: 0 0 30px rgba(238, 172, 15, 0.4); }
+        .mu .club-name:hover { color: var(--mu-red); transform: scale(1.03); text-shadow: 0 0 30px rgba(218, 2, 14, 0.4); }
+        
         .psg-banner {
-            background: linear-gradient(90deg, var(--psg-blue), var(--psg-red));
-            color: white; padding: 40px 20px; text-align: center;
-            text-transform: uppercase; font-weight: 900;
+            background: linear-gradient(135deg, var(--psg-blue) 0%, #000 100%);
+            color: white; padding: 50px 20px;
+            text-align: center; text-transform: uppercase;
+            font-weight: 900; border-top: 2px solid var(--psg-red);
         }
-
+        
         /* Modal styling */
         .modal {
-            display: none; position: fixed; z-index: 2000; left: 0; top: 0;
-            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(15px); justify-content: center; align-items: center;
+            display: none; position: fixed; z-index: 2000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
+            justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.3s;
         }
+        .modal.open { display: flex; opacity: 1; }
         .modal-content {
-            background: #111; padding: 40px; border-radius: 30px; border: 2px solid #333;
-            max-width: 450px; width: 90%; text-align: center; position: relative;
+            background: #151515; padding: 40px;
+            border-radius: 20px; border: 1px solid #333;
+            max-width: 500px; width: 85%; text-align: center;
+            position: relative; transform: translateY(20px);
+            transition: transform 0.3s;
         }
-        .close { position: absolute; top: 20px; right: 20px; font-size: 2rem; cursor: pointer; color: #555; }
-        
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-        .stat-item { background: #1a1a1a; padding: 15px; border-radius: 12px; border: 1px solid #222; }
-        .stat-val { font-size: 1.5rem; font-weight: 900; color: var(--rm-gold); display: block; margin-bottom: 5px; }
-        .stat-item i { color: #444; margin-bottom: 10px; font-size: 1.2rem; }
+        .modal.open .modal-content { transform: translateY(0); }
+        .close {
+            position: absolute; top: 15px; right: 20px;
+            font-size: 1.5rem; cursor: pointer; color: #666;
+        }
+        .close:hover { color: white; }
+        .stat-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 15px; margin-top: 25px;
+        }
+        .stat-item {
+            background: #202020; padding: 20px;
+            border-radius: 12px; border: 1px solid #333;
+            transition: 0.3s;
+        }
+        .stat-item:hover { border-color: var(--rm-gold); transform: translateY(-3px); }
+        .stat-val {
+            font-size: 2rem; font-weight: 900;
+            color: var(--rm-gold); display: block;
+        }
+        .stat-label { font-size: 0.85rem; color: #aaa; text-transform: uppercase; }
     </style>
 </head>
 <body>
-
-<nav class="navbar">
-    <div style="font-weight: 900; letter-spacing: 1px;">
-        <i class="fas fa-trophy" style="color: var(--rm-gold); margin-right: 10px;"></i> FOOTBALL GIANTS // 2026
-    </div>
-    <div id="clock" style="font-family: monospace; color: var(--rm-gold); font-weight: bold;">07:53:00 PM</div>
-</nav>
-
-<div class="hero">
-    <div class="panel rm" style="margin-top: 60px;">
-        <p style="font-weight: 900; opacity: 0.3; letter-spacing: 5px;"><i class="fas fa-crown"></i> LA LIGA</p>
-        <h1 class="club-name" onclick="showPlayer('vini')">REAL<br>MADRID</h1>
-    </div>
-    <div class="panel mu" style="margin-top: 60px;">
-        <p style="font-weight: 900; opacity: 0.3; letter-spacing: 5px;"><i class="fas fa-fire"></i> PREMIER LEAGUE</p>
-        <h1 class="club-name" onclick="showPlayer('mainoo')">MAN<br>UNITED</h1>
-    </div>
-</div>
-
-<div class="psg-banner">
-    <h2 style="margin: 0; font-size: 2rem;"><i class="fas fa-star"></i> ROAD TO THE DOUBLE <i class="fas fa-star"></i></h2>
-    <p style="margin-top: 10px; opacity: 0.8;">PSG vs Arsenal | Budapest | May 30, 2026</p>
-</div>
-
-<div id="playerModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="playerName" style="font-size: 3rem; margin: 0;">NAME</h2>
-        <p id="playerRole" style="color: #666; font-weight: 900; margin-bottom: 20px;">ROLE</p>
-        
-        <div class="stat-grid">
-            <div class="stat-item">
-                <i class="fas fa-bullseye"></i>
-                <span class="stat-val" id="p1">0</span><small>Goals '26</small>
-            </div>
-            <div class="stat-item">
-                <i class="fas fa-bolt"></i>
-                <span class="stat-val" id="p2">0</span><small>Assists</small>
-            </div>
-            <div class="stat-item">
-                <i class="fas fa-coins"></i>
-                <span class="stat-val" id="p3">0</span><small>Value</small>
-            </div>
-            <div class="stat-item">
-                <i class="fas fa-id-card"></i>
-                <span class="stat-val" id="p4">0</span><small>Age</small>
-            </div>
+    <nav class="navbar">
+        <div style="font-weight: 900; letter-spacing: 1px; font-size: 1.2rem;">
+            <i class="fas fa-shield-alt" style="color: var(--rm-gold);"></i> 2026<span style="color:var(--mu-red)">Stats</span>
         </div>
-        <p id="playerBio" style="margin-top: 30px; line-height: 1.6; opacity: 0.8;"></p>
+        <div id="clock" style="font-family: monospace; color: #aaa; font-weight: bold;"></div>
+    </nav>
+
+    <div class="hero">
+        <div class="panel rm" onclick="showPlayer('vini')">
+            <p style="font-weight: 700; opacity: 0.5; letter-spacing: 3px; font-size: 0.9rem;">
+                <i class="fas fa-crown"></i> MADRIDISTA
+            </p>
+            <h1 class="club-name">REAL<br>MADRID</h1>
+        </div>
+        <div class="panel mu" onclick="showPlayer('mainoo')">
+            <p style="font-weight: 700; opacity: 0.5; letter-spacing: 3px; font-size: 0.9rem;">
+                <i class="fas fa-fire"></i> THE RED DEVILS
+            </p>
+            <h1 class="club-name">MAN<br>UNITED</h1>
+        </div>
     </div>
-</div>
 
-<script>
-    function updateClock() {
-        const now = new Date();
-        document.getElementById('clock').innerText = now.toLocaleTimeString();
-    }
-    setInterval(updateClock, 1000);
+    <div class="psg-banner">
+        <h2 style="margin: 0; font-size: 2.5rem; letter-spacing: -1px;">
+            <i class="fas fa-star"></i> THE FINALE <i class="fas fa-star"></i>
+        </h2>
+        <p style="margin-top: 10px; opacity: 0.8; font-weight: 400;">
+            PSG vs Arsenal | Budapest | May 30, 2026
+        </p>
+    </div>
 
-    const playerData = {
-        vini: {
-            name: "VINI JR.", role: "FORWARD", p1: "28", p2: "14", p3: "€190M", p4: "25",
-            bio: "The face of Real Madrid. Despite the 2026 UCL exit, his pace and dribbling remain unmatched in world football."
-        },
-        mainoo: {
-            name: "K. MAINOO", role: "MIDFIELDER", p1: "12", p2: "18", p3: "€120M", p4: "21",
-            bio: "Manchester United's generational talent. The new #10 who defines the Red Devils' playstyle in 2026."
+    <div id="playerModal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close" onclick="closeModal(event)">&times;</span>
+            <h2 id="playerName" style="font-size: 2.5rem; margin: 0; text-transform: uppercase;">NAME</h2>
+            <p id="playerRole" style="color: var(--rm-gold); font-weight: 700; margin-bottom: 25px; letter-spacing: 2px;"></p>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <span class="stat-val" id="p1">0</span>
+                    <span class="stat-label">Goals '26</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-val" id="p2">0</span>
+                    <span class="stat-label">Assists</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-val" id="p3">0</span>
+                    <span class="stat-label">Market Value</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-val" id="p4">0</span>
+                    <span class="stat-label">Age</span>
+                </div>
+            </div>
+            <p id="playerBio" style="margin-top: 30px; line-height: 1.7; opacity: 0.8; font-size: 0.95rem;"></p>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('en-GB');
         }
-    };
+        setInterval(updateClock, 1000);
+        updateClock();
 
-    function showPlayer(id) {
-        const p = playerData[id];
-        document.getElementById('playerName').innerText = p.name;
-        document.getElementById('playerRole').innerText = p.role;
-        document.getElementById('p1').innerText = p.p1;
-        document.getElementById('p2').innerText = p.p2;
-        document.getElementById('p3').innerText = p.p3;
-        document.getElementById('p4').innerText = p.p4;
-        document.getElementById('playerBio').innerText = p.bio;
-        document.getElementById('playerModal').style.display = 'flex';
-    }
+        const playerData = {
+            vini: {
+                name: "VINI JR.",
+                role: "FORWARD",
+                p1: "29", p2: "15", p3: "€200M", p4: "25",
+                bio: "2026 Update: Vini Jr. has established himself as the undisputed best winger in the world, leading Real Madrid in both goals and assists during the 25/26 campaign."
+            },
+            mainoo: {
+                name: "K. MAINOO",
+                role: "MIDFIELDER",
+                p1: "11", p2: "19", p3: "€135M", p4: "21",
+                bio: "2026 Update: The heartbeat of Manchester United. Kobbie Mainoo's vision and control have made him a Ballon d'Or contender in this breakout 2026 season."
+            }
+        };
 
-    function closeModal() { document.getElementById('playerModal').style.display = 'none'; }
-    window.onclick = function(e) { if (e.target == document.getElementById('playerModal')) closeModal(); }
-</script>
+        function showPlayer(id) {
+            const p = playerData[id];
+            document.getElementById('playerName').innerText = p.name;
+            document.getElementById('playerRole').innerText = p.role;
+            document.getElementById('p1').innerText = p.p1;
+            document.getElementById('p2').innerText = p.p2;
+            document.getElementById('p3').innerText = p.p3;
+            document.getElementById('p4').innerText = p.p4;
+            document.getElementById('playerBio').innerText = p.bio;
+            document.getElementById('playerModal').classList.add('open');
+        }
 
+        function closeModal(e) {
+            if (e.target.id === 'playerModal' || e.target.classList.contains('close')) {
+                document.getElementById('playerModal').classList.remove('open');
+            }
+        }
+    </script>
 </body>
 </html>
+Use code with caution.
